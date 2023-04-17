@@ -7,12 +7,16 @@ const backCover = "/game-images/" + game.data.shortName + "/back-cover.jpg";
 <script>
     import * as THREE from "three";
 
+
+    const frontCoverNode = document.getElementById('front-cover') as HTMLInputElement;
+    const backCoverNode = document.getElementById('back-cover') as HTMLInputElement;
+
     const canvas = document.getElementById("game-box-3d") as HTMLElement;
     const scene = new THREE.Scene();
     const camera = new THREE.PerspectiveCamera(
-        75,
+        80,
         canvas.offsetWidth / 500,
-        0.1,
+        1,
         1000
     );
 
@@ -20,15 +24,23 @@ const backCover = "/game-images/" + game.data.shortName + "/back-cover.jpg";
     renderer.setSize(canvas.offsetWidth, 500);
     canvas.appendChild(renderer.domElement);
 
-    const geometry = new THREE.BoxGeometry(2, 3, 1);
-    const material = new THREE.MeshBasicMaterial({ color: 0x00ff00 });
-    const cube = new THREE.Mesh(geometry, material);
+    const textureFront = new THREE.TextureLoader().load(frontCoverNode.value);
+    const textureBack = new THREE.TextureLoader().load(backCoverNode.value);
+    const textureLeft = new THREE.TextureLoader().load('/game-images/standard-textures/left-cover.jpg');
+    const textureBlack = new THREE.TextureLoader().load('/game-images/standard-textures/black-cover.jpg');
+	const materialFront = new THREE.MeshBasicMaterial( { map: textureFront } );
+	const materialBack = new THREE.MeshBasicMaterial( { map: textureBack } );
+	const materialLeft = new THREE.MeshBasicMaterial( { map: textureLeft } );
+	const materialBlack = new THREE.MeshBasicMaterial( { map: textureBlack } );
+
+    const geometry = new THREE.BoxGeometry(4, 6, 0.4);
+    const cube = new THREE.Mesh(geometry, [materialBlack, materialLeft, materialBlack, materialBlack, materialFront, materialBack,]);
     scene.add(cube);
 
     camera.position.x = 2;
     camera.position.y = 2;
-    camera.position.z = 4;
-    camera.lookAt(1, 0, 1);
+    camera.position.z = 5;
+    camera.lookAt(1, .5, 1);
 
     function animate() {
         requestAnimationFrame(animate);
@@ -39,18 +51,8 @@ const backCover = "/game-images/" + game.data.shortName + "/back-cover.jpg";
     animate();
 </script>
 <style>
-    #game-box-2d {
-        display: flex;
-        justify-content: space-around;
-    }
-
-    img {
-        width: 300px;
-        height: auto;
-    }
 </style>
-<div id="game-box-2d">
-    <img src={frontCover} alt={game.data.title + " Front Cover"} />
-    <img src={backCover} alt={game.data.title + "Back Cover"} />
+<div id="game-box-3d">
+    <input id="front-cover" value={frontCover} class="d-none" />
+    <input id="back-cover" value={backCover} class="d-none" />
 </div>
-<div id="game-box-3d"></div>
