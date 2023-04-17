@@ -1,0 +1,25 @@
+---
+import { CollectionEntry, getCollection } from "astro:content";
+import GenreList from "../../components/GenreList.astro";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+
+export async function getStaticPaths() {
+	const games = await getCollection("games");
+	return games.map((game) => ({
+		params: { slug: game.slug },
+		props: game,
+	}));
+}
+type Props = CollectionEntry<"games">;
+
+const game = Astro.props;
+const genres = game.data.genres;
+const { Content } = await game.render();
+---
+
+<BaseLayout>
+	<h1>{game.data.title}</h1>
+	<Content />
+	{genres !== undefined && <GenreList genres={genres} />}
+	<a href={game.data.wikipedia} target="_blank"> Link to Wikipedia article</a>
+</BaseLayout>
