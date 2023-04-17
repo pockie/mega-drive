@@ -1,0 +1,20 @@
+---
+const { game } = Astro.props;
+const frontCover = "/game-images/" + game.data.shortName + "/front-cover.jpg";
+const backCover = "/game-images/" + game.data.shortName + "/back-cover.jpg";
+---
+<style>
+    .game-box-2d {
+        display: flex;
+        justify-content: space-around;
+    }
+
+    img {
+        width: 300px;
+        height: auto;
+    }
+</style>
+<div class="game-box-2d">
+    <img src={frontCover} alt={game.data.title + ' Front Cover'} />
+    <img src={backCover} alt={game.data.title+ 'Back Cover'} />
+</div>

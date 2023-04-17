@@ -1,5 +1,6 @@
 ---
 import { CollectionEntry, getCollection } from "astro:content";
+import GameBox from "../../components/GameBox.astro";
 import GenreList from "../../components/GenreList.astro";
 import BaseLayout from "../../layouts/BaseLayout.astro";
 
@@ -19,6 +20,7 @@ const { Content } = await game.render();
 
 <BaseLayout>
 	<h1>{game.data.title}</h1>
+	<GameBox game={game}/>
 	<Content />
 	{genres !== undefined && <GenreList genres={genres} />}
 	<a href={game.data.wikipedia} target="_blank"> Link to Wikipedia article</a>
