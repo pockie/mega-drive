@@ -3,8 +3,43 @@ const { game } = Astro.props;
 const frontCover = "/game-images/" + game.data.shortName + "/front-cover.jpg";
 const backCover = "/game-images/" + game.data.shortName + "/back-cover.jpg";
 ---
+
+<script>
+    import * as THREE from "three";
+
+    const canvas = document.getElementById("game-box-3d") as HTMLElement;
+    const scene = new THREE.Scene();
+    const camera = new THREE.PerspectiveCamera(
+        75,
+        canvas.offsetWidth / 500,
+        0.1,
+        1000
+    );
+
+    const renderer = new THREE.WebGLRenderer({ alpha: true });
+    renderer.setSize(canvas.offsetWidth, 500);
+    canvas.appendChild(renderer.domElement);
+
+    const geometry = new THREE.BoxGeometry(2, 3, 1);
+    const material = new THREE.MeshBasicMaterial({ color: 0x00ff00 });
+    const cube = new THREE.Mesh(geometry, material);
+    scene.add(cube);
+
+    camera.position.x = 2;
+    camera.position.y = 2;
+    camera.position.z = 4;
+    camera.lookAt(1, 0, 1);
+
+    function animate() {
+        requestAnimationFrame(animate);
+
+        cube.rotation.y += 0.01;
+        renderer.render(scene, camera);
+    }
+    animate();
+</script>
 <style>
-    .game-box-2d {
+    #game-box-2d {
         display: flex;
         justify-content: space-around;
     }
@@ -14,7 +49,8 @@ const backCover = "/game-images/" + game.data.shortName + "/back-cover.jpg";
         height: auto;
     }
 </style>
-<div class="game-box-2d">
-    <img src={frontCover} alt={game.data.title + ' Front Cover'} />
-    <img src={backCover} alt={game.data.title+ 'Back Cover'} />
+<div id="game-box-2d">
+    <img src={frontCover} alt={game.data.title + " Front Cover"} />
+    <img src={backCover} alt={game.data.title + "Back Cover"} />
 </div>
+<div id="game-box-3d"></div>
