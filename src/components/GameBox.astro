@@ -27,13 +27,13 @@ const backCover = "/game-images/" + game.data.shortName + "/back-cover.jpg";
         const canvas = document.getElementById("game-box-3d") as HTMLElement;
         scene = new THREE.Scene();
         camera = new THREE.PerspectiveCamera(
-            80,
+            90,
             canvas.offsetWidth / 500,
             1,
             1000
         );
 
-        renderer = new THREE.WebGLRenderer({ alpha: true });
+        renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
         renderer.setSize(canvas.offsetWidth, 500);
         canvas.appendChild(renderer.domElement);
 
@@ -56,7 +56,7 @@ const backCover = "/game-images/" + game.data.shortName + "/back-cover.jpg";
             map: textureBlack,
         });
 
-        const geometry = new THREE.BoxGeometry(4, 6, 0.4);
+        const geometry = new THREE.BoxGeometry(13.7, 17.7, 2.5);
         cube = new THREE.Mesh(geometry, [
             materialBlack,
             materialLeft,
@@ -68,9 +68,9 @@ const backCover = "/game-images/" + game.data.shortName + "/back-cover.jpg";
         scene.add(cube);
 
         camera.position.x = 2;
-        camera.position.y = 2;
-        camera.position.z = 5;
-        camera.lookAt(1, 0.5, 1);
+        camera.position.y = 1;
+        camera.position.z = 17;
+        camera.lookAt(1, 0.2, 1);
 
         canvas.addEventListener('mousedown', stopAnimation);
         canvas.addEventListener('mouseup', animate);
