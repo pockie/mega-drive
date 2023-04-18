@@ -7,51 +7,88 @@ const backCover = "/game-images/" + game.data.shortName + "/back-cover.jpg";
 <script>
     import * as THREE from "three";
 
+    let requestId: number;
+    let cube: THREE.Mesh;
+    let renderer: THREE.WebGLRenderer;
+    let scene: THREE.Scene;
+    let camera: THREE.PerspectiveCamera;
 
-    const frontCoverNode = document.getElementById('front-cover') as HTMLInputElement;
-    const backCoverNode = document.getElementById('back-cover') as HTMLInputElement;
+    init();
+    animate();
 
-    const canvas = document.getElementById("game-box-3d") as HTMLElement;
-    const scene = new THREE.Scene();
-    const camera = new THREE.PerspectiveCamera(
-        80,
-        canvas.offsetWidth / 500,
-        1,
-        1000
-    );
+    function init() {
+        const frontCoverNode = document.getElementById(
+            "front-cover"
+        ) as HTMLInputElement;
+        const backCoverNode = document.getElementById(
+            "back-cover"
+        ) as HTMLInputElement;
 
-    const renderer = new THREE.WebGLRenderer({ alpha: true });
-    renderer.setSize(canvas.offsetWidth, 500);
-    canvas.appendChild(renderer.domElement);
+        const canvas = document.getElementById("game-box-3d") as HTMLElement;
+        scene = new THREE.Scene();
+        camera = new THREE.PerspectiveCamera(
+            80,
+            canvas.offsetWidth / 500,
+            1,
+            1000
+        );
 
-    const textureFront = new THREE.TextureLoader().load(frontCoverNode.value);
-    const textureBack = new THREE.TextureLoader().load(backCoverNode.value);
-    const textureLeft = new THREE.TextureLoader().load('/game-images/standard-textures/left-cover.jpg');
-    const textureBlack = new THREE.TextureLoader().load('/game-images/standard-textures/black-cover.jpg');
-	const materialFront = new THREE.MeshBasicMaterial( { map: textureFront } );
-	const materialBack = new THREE.MeshBasicMaterial( { map: textureBack } );
-	const materialLeft = new THREE.MeshBasicMaterial( { map: textureLeft } );
-	const materialBlack = new THREE.MeshBasicMaterial( { map: textureBlack } );
+        renderer = new THREE.WebGLRenderer({ alpha: true });
+        renderer.setSize(canvas.offsetWidth, 500);
+        canvas.appendChild(renderer.domElement);
 
-    const geometry = new THREE.BoxGeometry(4, 6, 0.4);
-    const cube = new THREE.Mesh(geometry, [materialBlack, materialLeft, materialBlack, materialBlack, materialFront, materialBack,]);
-    scene.add(cube);
+        const textureFront = new THREE.TextureLoader().load(
+            frontCoverNode.value
+        );
+        const textureBack = new THREE.TextureLoader().load(backCoverNode.value);
+        const textureLeft = new THREE.TextureLoader().load(
+            "/game-images/standard-textures/left-cover.jpg"
+        );
+        const textureBlack = new THREE.TextureLoader().load(
+            "/game-images/standard-textures/black-cover.jpg"
+        );
+        const materialFront = new THREE.MeshBasicMaterial({
+            map: textureFront,
+        });
+        const materialBack = new THREE.MeshBasicMaterial({ map: textureBack });
+        const materialLeft = new THREE.MeshBasicMaterial({ map: textureLeft });
+        const materialBlack = new THREE.MeshBasicMaterial({
+            map: textureBlack,
+        });
 
-    camera.position.x = 2;
-    camera.position.y = 2;
-    camera.position.z = 5;
-    camera.lookAt(1, .5, 1);
+        const geometry = new THREE.BoxGeometry(4, 6, 0.4);
+        cube = new THREE.Mesh(geometry, [
+            materialBlack,
+            materialLeft,
+            materialBlack,
+            materialBlack,
+            materialFront,
+            materialBack,
+        ]);
+        scene.add(cube);
+
+        camera.position.x = 2;
+        camera.position.y = 2;
+        camera.position.z = 5;
+        camera.lookAt(1, 0.5, 1);
+
+        canvas.addEventListener('mousedown', stopAnimation);
+        canvas.addEventListener('mouseup', animate);
+    }
 
     function animate() {
-        requestAnimationFrame(animate);
+        requestId = requestAnimationFrame(animate);
 
         cube.rotation.y += 0.01;
         renderer.render(scene, camera);
     }
-    animate();
+
+    function stopAnimation() {
+        console.log('sadsadsadasda');
+        cancelAnimationFrame(requestId);
+    }
 </script>
-<style>
-</style>
+<style></style>
 <div id="game-box-3d">
     <input id="front-cover" value={frontCover} class="d-none" />
     <input id="back-cover" value={backCover} class="d-none" />

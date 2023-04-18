@@ -3,5 +3,6 @@ title: "Sonic - The Hedgehog 2"
 shortName: "sonic-2"
 genres: ["Platformer", "Jump ’n’ Run"]
 wikipedia: "https://en.wikipedia.org/wiki/Sonic_the_Hedgehog_2"
+release: '1992'
 ---
-**Sonic the Hedgehog** is a 1991 platform game developed by Sonic Team and published by Sega for the Sega Genesis/Mega Drive. The first game in the Sonic the Hedgehog franchise, it was released in North America on June 23 and in PAL regions and Japan the following month. Players control Sonic the Hedgehog, who can run at supersonic speeds; Sonic sets out on a quest to defeat Dr. Robotnik, a scientist who has imprisoned animals in robots and seeks the powerful Chaos Emeralds. The gameplay involves collecting rings as a form of health, and a simple control scheme, with jumping and attacking controlled by a single button. 
+**Sonic the Hedgehog 2** is a 1992 platform game developed by Sega Technical Institute (STI) for the Sega Genesis. It follows Sonic as he attempts to stop Doctor Robotnik from stealing the Chaos Emeralds to power his space station. Like the first Sonic the Hedgehog (1991), players traverse side-scrolling levels at high speeds while collecting rings, defeating enemies, and fighting bosses. Sonic 2 introduces Sonic's sidekick Miles "Tails" Prower and features faster gameplay, larger levels, a multiplayer mode, and special stages featuring pre-rendered 3D graphics.
