@@ -5,12 +5,13 @@ const imagesPath = "/hardware-images/" + hardware.data.shortName + '/';
 
 <script>
     import * as THREE from "three";
+    import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
 
-    let requestId: number;
     let cube: THREE.Mesh;
     let renderer: THREE.WebGLRenderer;
     let scene: THREE.Scene;
     let camera: THREE.PerspectiveCamera;
+    let controls: OrbitControls;
 
     init();
     animate();
@@ -41,6 +42,10 @@ const imagesPath = "/hardware-images/" + hardware.data.shortName + '/';
 
         renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
         renderer.setSize(canvas.offsetWidth, 500);
+
+        controls = new OrbitControls( camera, renderer.domElement );
+        controls.update();
+
         canvas.appendChild(renderer.domElement);
 
         const textureTop = new THREE.TextureLoader().load(imagesPathNode.value + 'top-cover.jpg');
@@ -74,21 +79,12 @@ const imagesPath = "/hardware-images/" + hardware.data.shortName + '/';
         camera.position.y = 15;
         camera.position.z = 20;
         camera.lookAt(1, 0.2, 1);
-
-        canvas.addEventListener("mousedown", stopAnimation);
-        canvas.addEventListener("mouseup", animate);
     }
 
     function animate() {
-        requestId = requestAnimationFrame(animate);
-
-        cube.rotation.y += 0.01;
+        requestAnimationFrame(animate);
         renderer.render(scene, camera);
-    }
-
-    function stopAnimation() {
-        console.log("sadsadsadasda");
-        cancelAnimationFrame(requestId);
+        controls.update();
     }
 </script>
 <style></style>
