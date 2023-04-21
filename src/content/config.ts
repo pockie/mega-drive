@@ -1,21 +1,27 @@
 import { defineCollection, z } from 'astro:content';
 
-const blog = defineCollection({
-	// Type-check frontmatter using a schema
+const games = defineCollection({
 	schema: z.object({
 		title: z.string(),
-		description: z.string(),
-		// Transform string to Date object
-		pubDate: z
-			.string()
-			.or(z.date())
-			.transform((val) => new Date(val)),
-		updatedDate: z
-			.string()
-			.optional()
-			.transform((str) => (str ? new Date(str) : undefined)),
-		heroImage: z.string().optional(),
+		shortName: z.string(),
+		genres: z.array(z.string()),
+		release: z.string(),
+		wikipedia: z.string().url().optional(),
 	}),
 });
 
-export const collections = { blog };
+const hardwares = defineCollection({
+	schema: z.object({
+		title: z.string(),
+		shortName: z.string(),
+		release: z.string(),
+		sizes: z.object({
+			depth: z.number(),
+			width: z.number(),
+			height: z.number(),
+		}),
+		wikipedia: z.string().url().optional(),
+	}),
+});
+
+export const collections = { games, hardwares };
