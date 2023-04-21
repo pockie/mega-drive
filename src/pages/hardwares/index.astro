@@ -1,0 +1,18 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import { getCollection } from "astro:content";
+import HardwareCard from "../../components/HardwareCard.astro";
+
+const hardewares = await getCollection("hardwares");
+
+---
+
+<BaseLayout>
+    <div class="hardware-list">
+		{
+			hardewares.map((hardware) => (
+                <HardwareCard shortName={hardware.data.shortName} title={hardware.data.title} />
+			))
+		}
+	</div>
+</BaseLayout>

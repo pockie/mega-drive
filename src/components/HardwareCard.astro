@@ -1,0 +1,21 @@
+---
+const { shortName, title } = Astro.props;
+const frontCover = "/hardware-images/" + shortName + "/top-cover.jpg";
+---
+<style>
+    .game-card {
+        padding: 5px;
+    }
+
+    img {
+        max-height: 280px;
+    }
+</style>
+<div class="hardware-card" data-title={title}>
+    <a href={"hardwares/" + shortName}>
+        <figure>
+            <img src={frontCover} title={title} alt={title} />
+            <figcaption>{title}</figcaption>
+        </figure>
+    </a>
+</div>

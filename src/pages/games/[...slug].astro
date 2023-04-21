@@ -23,6 +23,6 @@ const { Content } = await game.render();
 	<GameBox game={game}/>
 	<Content />
 	<div>Release: {game.data.release}</div>
-	{genres !== undefined && <GenreList genres={genres} />}
-	<a href={game.data.wikipedia} target="_blank"> Link to Wikipedia article</a>
+	<GenreList genres={genres} />
+	{game.data.wikipedia !== undefined && <a href={game.data.wikipedia} target="_blank"> Link to Wikipedia article</a>}
 </BaseLayout>

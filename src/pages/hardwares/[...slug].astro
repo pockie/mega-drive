@@ -1,0 +1,25 @@
+---
+import { CollectionEntry, getCollection } from "astro:content";
+import HardwareBox from "../../components/HardwareBox.astro";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+
+export async function getStaticPaths() {
+	const hardwares = await getCollection("hardwares");
+	return hardwares.map((hardware) => ({
+		params: { slug: hardware.slug },
+		props: hardware,
+	}));
+}
+type Props = CollectionEntry<"hardwares">;
+
+const hardware = Astro.props;
+const { Content } = await hardware.render();
+---
+
+<BaseLayout>
+	<h1>{hardware.data.title}</h1>
+	<HardwareBox hardware={hardware}/>
+	<Content />
+	<div>Release: {hardware.data.release}</div>
+	{hardware.data.wikipedia !== undefined && <a href={hardware.data.wikipedia} target="_blank"> Link to Wikipedia article</a>}
+</BaseLayout>

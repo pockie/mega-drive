@@ -1,0 +1,100 @@
+---
+const { hardware } = Astro.props;
+const imagesPath = "/hardware-images/" + hardware.data.shortName + '/';
+---
+
+<script>
+    import * as THREE from "three";
+
+    let requestId: number;
+    let cube: THREE.Mesh;
+    let renderer: THREE.WebGLRenderer;
+    let scene: THREE.Scene;
+    let camera: THREE.PerspectiveCamera;
+
+    init();
+    animate();
+
+    function init() {
+        const imagesPathNode = document.getElementById(
+            "images-path"
+        ) as HTMLInputElement;
+        const depth = parseInt(
+            (document.getElementById("three-depth") as HTMLDivElement).innerText
+        );
+        const width = parseInt(
+            (document.getElementById("three-width") as HTMLDivElement).innerText
+        );
+        const height = parseInt(
+            (document.getElementById("three-height") as HTMLDivElement)
+                .innerText
+        );
+
+        const canvas = document.getElementById("game-box-3d") as HTMLElement;
+        scene = new THREE.Scene();
+        camera = new THREE.PerspectiveCamera(
+            90,
+            canvas.offsetWidth / 500,
+            1,
+            1000
+        );
+
+        renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
+        renderer.setSize(canvas.offsetWidth, 500);
+        canvas.appendChild(renderer.domElement);
+
+        const textureTop = new THREE.TextureLoader().load(imagesPathNode.value + 'top-cover.jpg');
+        const textureBack = new THREE.TextureLoader().load(imagesPathNode.value + 'back-cover.jpg');
+        const textureSide1 = new THREE.TextureLoader().load(imagesPathNode.value + 'side-1.jpg');
+        const textureSide2 = new THREE.TextureLoader().load(imagesPathNode.value + 'side-2.jpg');
+        const textureSide3 = new THREE.TextureLoader().load(imagesPathNode.value + 'side-3.jpg');
+        const textureSide4 = new THREE.TextureLoader().load(imagesPathNode.value + 'side-4.jpg');
+
+        const materialTop = new THREE.MeshBasicMaterial({
+            map: textureTop,
+        });
+        const materialBack = new THREE.MeshBasicMaterial({ map: textureBack });
+        const materialSide1 = new THREE.MeshBasicMaterial({ map: textureSide1 });
+        const materialSide2 = new THREE.MeshBasicMaterial({map: textureSide2 });
+        const materialSide3 = new THREE.MeshBasicMaterial({map: textureSide3 });
+        const materialSide4 = new THREE.MeshBasicMaterial({map: textureSide4 });
+
+        const geometry = new THREE.BoxGeometry(width, height, depth);
+        cube = new THREE.Mesh(geometry, [
+            materialSide1,
+            materialSide2,
+            materialTop,
+            materialBack,
+            materialSide3,
+            materialSide4,
+        ]);
+        scene.add(cube);
+
+        camera.position.x = 2;
+        camera.position.y = 15;
+        camera.position.z = 20;
+        camera.lookAt(1, 0.2, 1);
+
+        canvas.addEventListener("mousedown", stopAnimation);
+        canvas.addEventListener("mouseup", animate);
+    }
+
+    function animate() {
+        requestId = requestAnimationFrame(animate);
+
+        cube.rotation.y += 0.01;
+        renderer.render(scene, camera);
+    }
+
+    function stopAnimation() {
+        console.log("sadsadsadasda");
+        cancelAnimationFrame(requestId);
+    }
+</script>
+<style></style>
+<div id="game-box-3d">
+    <input id="images-path" value={imagesPath} class="d-none" />
+    <div id="three-depth" class="d-none">{hardware.data.sizes.depth}</div>
+    <div id="three-width" class="d-none">{hardware.data.sizes.width}</div>
+    <div id="three-height" class="d-none">{hardware.data.sizes.height}</div>
+</div>
