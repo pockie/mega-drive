@@ -41,8 +41,8 @@ import { ShapeGeometry } from "three";
 
         canvas.appendChild(renderer.domElement);
 
-        const boxGroup = createBox();
-        scene.add(boxGroup);
+        scene.add(createBox());
+        addLight();
 
         camera.position.x = 2;
         camera.position.y = 1;
@@ -66,29 +66,19 @@ import { ShapeGeometry } from "three";
         const textureLeft = new THREE.TextureLoader().load(
             "/game-images/standard-textures/left-cover.jpg"
         );
-        const textureBlack = new THREE.TextureLoader().load(
-            "/game-images/standard-textures/black-cover.jpg"
+        const textureInner = new THREE.TextureLoader().load(
+            "/game-images/standard-textures/inner-cover.jpg"
         );
-        const materialFront = new THREE.MeshBasicMaterial({
+        const materialFront = new THREE.MeshLambertMaterial({
             map: textureFront,
         });
-        const materialBack = new THREE.MeshBasicMaterial({ map: textureBack });
-        const materialLeft = new THREE.MeshBasicMaterial({ map: textureLeft });
-        const materialBlack = new THREE.MeshBasicMaterial({
-            map: textureBlack,
-        });
-
+        const materialBack = new THREE.MeshLambertMaterial({ map: textureBack });
+        const materialLeft = new THREE.MeshLambertMaterial({ map: textureLeft });
+        const materialBlack = new THREE.MeshLambertMaterial({color: '#151515'});
 
         const boxGroup = new THREE.Group();
         const innerGeom = new THREE.BoxGeometry(boxWidth - .7, boxHeight - .7, 2.4);
-        const innerCube = new THREE.Mesh(innerGeom, [
-            materialBlack,
-            materialBlack,
-            materialBlack,
-            materialBlack,
-            materialBlack,
-            materialBlack,
-        ]);
+        const innerCube = new THREE.Mesh(innerGeom, materialBlack);
         boxGroup.add(innerCube);
 
 
@@ -160,6 +150,36 @@ import { ShapeGeometry } from "three";
         boxGroup.add(svgGroup);
 
         return boxGroup;
+    }
+
+    function addLight() {
+        const hemiLight = new THREE.HemisphereLight( 0xffffff, 0xffffff, 1.1 );
+		hemiLight.color.setHSL( 0.6, 1, 0.6 );
+		hemiLight.groundColor.setHSL( 0.095, 1, 0.75 );
+		hemiLight.position.set( 0, 50, 0 );
+		scene.add( hemiLight );
+
+
+        const dirLight = new THREE.DirectionalLight( 0xffffff, 1 );
+		dirLight.color.setHSL( 0.1, 1, 0.95 );
+		dirLight.position.set( - 1, 1.75, 1 );
+		dirLight.position.multiplyScalar( 30 );
+		scene.add( dirLight );
+
+		dirLight.castShadow = true;
+
+		dirLight.shadow.mapSize.width = 2048;
+		dirLight.shadow.mapSize.height = 2048;
+
+		const d = 50;
+
+		dirLight.shadow.camera.left = - d;
+		dirLight.shadow.camera.right = d;
+		dirLight.shadow.camera.top = d;
+		dirLight.shadow.camera.bottom = - d;
+
+		dirLight.shadow.camera.far = 3500;
+		dirLight.shadow.bias = - 0.0001;
     }
 
     function animate(): void {
