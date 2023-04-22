@@ -1,6 +1,5 @@
 ---
 title: "After Burner II"
-shortName: "after-burner-2"
 genres: ["Rail shooter"]
 wikipedia: "https://en.wikipedia.org/wiki/After_Burner#After_Burner_II"
 release: '1987'

@@ -11,7 +11,7 @@ const hardewares = await getCollection("hardwares");
     <div class="hardware-list">
 		{
 			hardewares.map((hardware) => (
-                <HardwareCard shortName={hardware.data.shortName} title={hardware.data.title} />
+                <HardwareCard shortName={hardware.slug} title={hardware.data.title} />
 			))
 		}
 	</div>

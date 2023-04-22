@@ -1,7 +1,7 @@
 ---
 const { game } = Astro.props;
-const frontCover = "/game-images/" + game.data.shortName + "/front-cover.jpg";
-const backCover = "/game-images/" + game.data.shortName + "/back-cover.jpg";
+const frontCover = "/game-images/" + game.slug + "/front-cover.jpg";
+const backCover = "/game-images/" + game.slug + "/back-cover.jpg";
 ---
 
 <script>

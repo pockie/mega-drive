@@ -1,6 +1,5 @@
 ---
 title: "Sonic - The Hedgehog 2"
-shortName: "sonic-2"
 genres: ["Platformer", "Jump ’n’ Run"]
 wikipedia: "https://en.wikipedia.org/wiki/Sonic_the_Hedgehog_2"
 release: '1992'

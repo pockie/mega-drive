@@ -1,6 +1,5 @@
 ---
 title: "Darius"
-shortName: "darius"
 genres: ["Horizontal-scrolling shooter"]
 wikipedia: "https://en.wikipedia.org/wiki/Darius_(video_game)"
 release: '1987 (MD: 2020)'

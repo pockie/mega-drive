@@ -2,6 +2,7 @@
 import GameCard from "../components/GameCard.astro";
 import BaseLayout from "../layouts/BaseLayout.astro";
 import { getCollection } from "astro:content";
+import { Debug } from 'astro/components';
 
 const games = await getCollection("games");
 ---
@@ -47,7 +48,7 @@ const games = await getCollection("games");
 		{
 			games.map((game) => (
 				<GameCard
-					shortName={game.data.shortName}
+					shortName={game.slug}
 					gameTitle={game.data.title}
 				/>
 			))

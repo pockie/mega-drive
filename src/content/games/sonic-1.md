@@ -1,6 +1,5 @@
 ---
 title: "Sonic - The Hedgehog 1"
-shortName: "sonic-1"
 genres: ["Platformer", "Jump ’n’ Run"]
 wikipedia: "https://en.wikipedia.org/wiki/Sonic_the_Hedgehog_(1991_video_game)"
 release: '1991'

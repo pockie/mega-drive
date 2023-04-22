@@ -3,7 +3,6 @@ import { defineCollection, z } from 'astro:content';
 const games = defineCollection({
 	schema: z.object({
 		title: z.string(),
-		shortName: z.string(),
 		genres: z.array(z.string()),
 		release: z.string(),
 		wikipedia: z.string().url().optional(),
@@ -13,7 +12,6 @@ const games = defineCollection({
 const hardwares = defineCollection({
 	schema: z.object({
 		title: z.string(),
-		shortName: z.string(),
 		release: z.string(),
 		sizes: z.object({
 			depth: z.number(),

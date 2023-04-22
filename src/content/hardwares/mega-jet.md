@@ -1,6 +1,5 @@
 ---
 title: "Mega Jet"
-shortName: "mega-jet"
 wikipedia: "https://de.wikipedia.org/wiki/Sega_Mega_Jet"
 release: '1994'
 sizes: {
