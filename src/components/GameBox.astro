@@ -9,7 +9,12 @@ const backCover = "/game-images/" + game.data.shortName + "/back-cover.jpg";
     import * as THREE from "three";
     import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
 
-    let cube: THREE.Mesh;
+import { ShapeGeometry } from "three";
+
+    const boxHeight = 17.7;
+    const boxWidth = 13.7;
+    const boxDepth = 2.5;
+
     let renderer: THREE.WebGLRenderer;
     let scene: THREE.Scene;
     let camera: THREE.PerspectiveCamera;
@@ -18,14 +23,7 @@ const backCover = "/game-images/" + game.data.shortName + "/back-cover.jpg";
     init();
     animate();
 
-    function init() {
-        const frontCoverNode = document.getElementById(
-            "front-cover"
-        ) as HTMLInputElement;
-        const backCoverNode = document.getElementById(
-            "back-cover"
-        ) as HTMLInputElement;
-
+    function init(): void {
         const canvas = document.getElementById("game-box-3d") as HTMLElement;
         scene = new THREE.Scene();
         camera = new THREE.PerspectiveCamera(
@@ -42,6 +40,24 @@ const backCover = "/game-images/" + game.data.shortName + "/back-cover.jpg";
         controls.update();
 
         canvas.appendChild(renderer.domElement);
+
+        const boxGroup = createBox();
+        scene.add(boxGroup);
+
+        camera.position.x = 2;
+        camera.position.y = 1;
+        camera.position.z = 17;
+        camera.lookAt(1, 0.2, 1);
+        
+    }
+
+    function createBox(): THREE.Group {
+        const frontCoverNode = document.getElementById(
+            "front-cover"
+        ) as HTMLInputElement;
+        const backCoverNode = document.getElementById(
+            "back-cover"
+        ) as HTMLInputElement;
 
         const textureFront = new THREE.TextureLoader().load(
             frontCoverNode.value
@@ -62,17 +78,55 @@ const backCover = "/game-images/" + game.data.shortName + "/back-cover.jpg";
             map: textureBlack,
         });
 
-        const geometry = new THREE.BoxGeometry(13.7, 17.7, 2.5);
-        cube = new THREE.Mesh(geometry, [
+
+        const boxGroup = new THREE.Group();
+        const innerGeom = new THREE.BoxGeometry(boxWidth - .7, boxHeight - .7, 2.4);
+        const innerCube = new THREE.Mesh(innerGeom, [
+            materialBlack,
+            materialBlack,
+            materialBlack,
+            materialBlack,
+            materialBlack,
+            materialBlack,
+        ]);
+        boxGroup.add(innerCube);
+
+
+        const frontGeom = new THREE.BoxGeometry(boxWidth, boxHeight, .1);
+        const frontCube = new THREE.Mesh(frontGeom, [
+            materialBlack,
+            materialBlack,
+            materialBlack,
+            materialBlack,
+            materialFront,
+            materialBlack,
+        ]);
+        frontCube.position.z = 1.2
+        boxGroup.add(frontCube);
+
+        const backGeom = new THREE.BoxGeometry(boxWidth, boxHeight, .1);
+        const backCube = new THREE.Mesh(backGeom, [
+            materialBlack,
+            materialBlack,
+            materialBlack,
+            materialBlack,
+            materialBlack,
+            materialBack,
+        ]);
+        backCube.position.z = -1.2
+        boxGroup.add(backCube);
+
+        const leftGeom = new THREE.BoxGeometry(.1, boxHeight, boxDepth);
+        const leftCube = new THREE.Mesh(leftGeom, [
             materialBlack,
             materialLeft,
             materialBlack,
             materialBlack,
-            materialFront,
-            materialBack,
+            materialBlack,
+            materialBlack,
         ]);
-        scene.add(cube);
-
+        leftCube.position.x = -6.8
+        boxGroup.add(leftCube);
 
         const svgMarkup = (document.querySelector('svg') as SVGElement).outerHTML;
 
@@ -101,21 +155,19 @@ const backCover = "/game-images/" + game.data.shortName + "/back-cover.jpg";
         svgGroup.scale.y *= -.02;
         svgGroup.position.x = -2;
         svgGroup.position.y = 10.9;
-        svgGroup.position.z = -1;
+        svgGroup.position.z = -1.2;        
 
-        scene.add(svgGroup);
+        boxGroup.add(svgGroup);
 
-        camera.position.x = 2;
-        camera.position.y = 1;
-        camera.position.z = 17;
-        camera.lookAt(1, 0.2, 1);
+        return boxGroup;
     }
 
-    function animate() {
+    function animate(): void {
         requestAnimationFrame(animate);
         renderer.render(scene, camera);
         controls.update();
     }
+
 </script>
 <style></style>
 <div id="game-box-3d">
