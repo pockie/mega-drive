@@ -4,19 +4,19 @@ const frontCover = "/game-images/" + shortName + "/front-cover.jpg";
 ---
 
 <style>
-    .game-card {
-        padding: 5px;
-    }
+  .game-card {
+    padding: 5px;
+  }
 
-    img {
-        max-height: 280px;
-    }
+  img {
+    max-height: 280px;
+  }
 </style>
 <div class="game-card" data-title={gameTitle}>
-    <a href={"games/" + shortName}>
-        <figure>
-            <img src={frontCover} title={gameTitle} alt={gameTitle} />
-            <figcaption>{gameTitle}</figcaption>
-        </figure>
-    </a>
+  <a href={"games/" + shortName}>
+    <figure>
+      <img class="image-cover" src={frontCover} title={gameTitle} alt={gameTitle} />
+      <figcaption>{gameTitle}</figcaption>
+    </figure>
+  </a>
 </div>

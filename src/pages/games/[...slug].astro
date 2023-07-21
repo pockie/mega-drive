@@ -17,9 +17,17 @@ const game = Astro.props;
 const genres = game.data.genres;
 const { Content } = await game.render();
 ---
+<style>
+.subtitle {
+	font-size: 0.75em;
+	font-weight: normal;
+	margin-left: 10px;
+}
+</style>
 
 <BaseLayout>
-	<h1>{game.data.title}</h1>
+	<h1>{game.data.title}{game.data.subtitle !== undefined && <span class="subtitle">{game.data.subtitle}</span>}</h1>
+	
 	<GameBox game={game}/>
 	<Content />
 	<div>Release: {game.data.release}</div>
