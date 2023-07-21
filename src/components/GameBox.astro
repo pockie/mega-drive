@@ -62,14 +62,9 @@ const leftCover = "/game-images/" + game.slug + "/left-cover.jpg";
             "left-cover"
         ) as HTMLInputElement;
 
-        const textureFront = new THREE.TextureLoader().load(
-            frontCoverNode.value
-        );
-        const textureBack = new THREE.TextureLoader().load(backCoverNode.value);
-        const textureLeft = new THREE.TextureLoader().load(leftCoverNode.value);
-        const textureInner = new THREE.TextureLoader().load(
-            "/game-images/standard-textures/inner-cover.jpg"
-        );
+        const textureFront = new THREE.TextureLoader().load('/mega-drive' + frontCoverNode.value);
+        const textureBack = new THREE.TextureLoader().load('/mega-drive' + backCoverNode.value);
+        const textureLeft = new THREE.TextureLoader().load('/mega-drive' + leftCoverNode.value);
         const materialFront = new THREE.MeshLambertMaterial({
             map: textureFront,
         });

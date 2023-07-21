@@ -2,7 +2,6 @@
 import GameCard from "../components/GameCard.astro";
 import BaseLayout from "../layouts/BaseLayout.astro";
 import { getCollection } from "astro:content";
-import { Debug } from 'astro/components';
 
 const games = await getCollection("games");
 ---

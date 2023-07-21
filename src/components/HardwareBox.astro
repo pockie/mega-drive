@@ -48,12 +48,12 @@ const imagesPath = "/hardware-images/" + hardware.slug + '/';
 
         canvas.appendChild(renderer.domElement);
 
-        const textureTop = new THREE.TextureLoader().load(imagesPathNode.value + 'top-cover.jpg');
-        const textureBack = new THREE.TextureLoader().load(imagesPathNode.value + 'back-cover.jpg');
-        const textureSide1 = new THREE.TextureLoader().load(imagesPathNode.value + 'side-1.jpg');
-        const textureSide2 = new THREE.TextureLoader().load(imagesPathNode.value + 'side-2.jpg');
-        const textureSide3 = new THREE.TextureLoader().load(imagesPathNode.value + 'side-3.jpg');
-        const textureSide4 = new THREE.TextureLoader().load(imagesPathNode.value + 'side-4.jpg');
+        const textureTop = new THREE.TextureLoader().load('/mega-drive' + imagesPathNode.value + 'top-cover.jpg');
+        const textureBack = new THREE.TextureLoader().load('/mega-drive' + imagesPathNode.value + 'back-cover.jpg');
+        const textureSide1 = new THREE.TextureLoader().load('/mega-drive' + imagesPathNode.value + 'side-1.jpg');
+        const textureSide2 = new THREE.TextureLoader().load('/mega-drive' + imagesPathNode.value + 'side-2.jpg');
+        const textureSide3 = new THREE.TextureLoader().load('/mega-drive' + imagesPathNode.value + 'side-3.jpg');
+        const textureSide4 = new THREE.TextureLoader().load('/mega-drive' + imagesPathNode.value + 'side-4.jpg');
 
         const materialTop = new THREE.MeshBasicMaterial({
             map: textureTop,
