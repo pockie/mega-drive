@@ -1,6 +1,10 @@
 ---
 import HeaderLink from './HeaderLink.astro';
 import { SITE_TITLE } from '../consts';
+import { getCollection } from "astro:content";
+
+const games = await getCollection("games");
+const hardewares = await getCollection("hardwares");
 ---
 
 <header>
@@ -8,8 +12,8 @@ import { SITE_TITLE } from '../consts';
 		{SITE_TITLE}
 	</h2>
 	<nav>
-		<HeaderLink href="/mega-drive/">Games</HeaderLink>
-		<HeaderLink href="/mega-drive/hardwares">Hardware</HeaderLink>
+		<HeaderLink href="/mega-drive/">Games ({games.length})</HeaderLink>
+		<HeaderLink href="/mega-drive/hardwares">Hardware ({hardewares.length})</HeaderLink>
 	</nav>
 </header>
 <style>
