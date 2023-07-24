@@ -1,5 +1,5 @@
 ---
-title: "Rings of Powe"
+title: "Rings of Power"
 genres: ["Role-playing video game"]
 wikipedia: "https://en.wikipedia.org/wiki/Rings_of_Power_(video_game)"
 release: '1992'
