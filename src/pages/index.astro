@@ -8,9 +8,11 @@ const games = await getCollection("games");
 
 <style>
 	.game-list {
-		display: flex;
-		flex-wrap: wrap;
+		display: grid;
+  		grid-template-columns: repeat(auto-fill, 300px);
+  		justify-content: space-around;
 	}
+
 </style>
 <script>
 	const searchNode = document.getElementById("game-search");
