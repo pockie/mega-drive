@@ -15,29 +15,35 @@ const games = await getCollection("games");
 
 </style>
 <script>
-	const searchNode = document.getElementById("game-search");
+	const searchNode = document.getElementById("game-search") as HTMLInputElement;
 	if (searchNode) {
 		const games = document.querySelectorAll("[data-title]") as NodeListOf<HTMLDivElement>;
 		searchNode.addEventListener("keyup", (event) => {
 			if (event.target) {
 				const target = event.target as HTMLInputElement;
 				const searchString = target.value;
-				games.forEach((game) => {
-					if (
-						searchString === "" ||
-						(
-							game.dataset.hasOwnProperty('title')
-							&& game.dataset.title.toLowerCase().includes(searchString.toLowerCase()
-						)
-						)
-					) {
-						game.classList.remove("d-none");
-					} else {
-						game.classList.add("d-none");
-					}
-				});
+				searchGame(searchString, games);
 			}
 		});
+
+		searchGame(searchNode.value, games);
+	}
+
+	function searchGame(searchString: string, games: NodeListOf<HTMLDivElement>) {		
+		
+		games.forEach((game) => {
+			if (
+				searchString === "" ||
+				(
+					game.dataset.hasOwnProperty('title')
+					&& game.dataset.title.toLowerCase().includes(searchString.toLowerCase())
+				)
+			) {
+				game.classList.remove("d-none");
+			} else {
+				game.classList.add("d-none");
+			}
+		});			
 	}
 </script>
 <BaseLayout>
