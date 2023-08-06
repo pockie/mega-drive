@@ -3,6 +3,8 @@ import { CollectionEntry, getCollection } from "astro:content";
 import GameBox from "../../components/GameBox.astro";
 import GenreList from "../../components/GenreList.astro";
 import BaseLayout from "../../layouts/BaseLayout.astro";
+import GameCard from "../../components/GameCard.astro";
+
 
 export async function getStaticPaths() {
 	const games = await getCollection("games");
@@ -16,6 +18,23 @@ type Props = CollectionEntry<"games">;
 const game = Astro.props;
 const genres = game.data.genres;
 const { Content } = await game.render();
+const games = await getCollection("games");
+let prevGame = null;
+let nextGame = null;
+
+for (let i = 0; i < games.length; i++) {
+	if (games[i].slug === game.slug) {
+		if (i > 0) {
+			prevGame = games[i - 1];
+		}
+		if (i < games.length - 1) {
+			nextGame = games[i + 1];
+		}
+	}
+}
+
+const prevLink = prevGame !== null ? '/mega-drive/games/' + prevGame.slug : null;
+const nextink = nextGame !== null ? '/mega-drive/games/' + nextGame.slug : null;
 ---
 <style>
 .subtitle {
@@ -23,14 +42,61 @@ const { Content } = await game.render();
 	font-weight: normal;
 	margin-left: 10px;
 }
+
+.links-box {
+    position: relative;
+    width: 100%;
+}
+.links-box a {
+    position: absolute;
+    top: 0;
+    height: 100%;
+    text-decoration: none;
+    font-weight: bold;
+    z-index: 1;
+	display: flex;
+    align-items: center; 
+}
+
+.links-box a:hover {
+	color: black;
+}
+
+
+
+#prev-game {
+	left: 0;
+}
+
+#next-game {
+    right: 0;
+}
+
 </style>
 
 <BaseLayout>
 	<h1>{game.data.title}{game.data.subtitle !== undefined && <span class="subtitle">{game.data.subtitle}</span>}</h1>
-	
-	<GameBox game={game}/>
+	<div class="links-box">	
+		{prevGame !== null && <a id="prev-game" href={prevLink}><i class="fas fa-circle-chevron-left fa-2x"></i></a>}
+		<GameBox game={game}/>
+		{nextGame !== null && <a id="next-game" href={nextink}><i class="fas fa-circle-chevron-right fa-2x"></i></a>}
+	</div>
 	<Content />
 	<div>Release: {game.data.release}</div>
 	<GenreList genres={genres} />
 	{game.data.wikipedia !== undefined && <a href={game.data.wikipedia} target="_blank"> Link to Wikipedia article</a>}
 </BaseLayout>
+<script>
+	const prevGame = document.getElementById('prev-game') as HTMLAnchorElement;
+	const nextGame = document.getElementById('next-game') as HTMLAnchorElement;
+	
+	document.addEventListener('keyup', (event) => {
+		if (prevGame && event.key === "ArrowLeft") {    
+			window.location.href = prevGame.href;
+		}
+
+		if (event.key === "ArrowRight") {      
+			window.location.href = nextGame.href;
+		}
+	});
+</script>

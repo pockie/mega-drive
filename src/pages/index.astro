@@ -4,6 +4,7 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 import { getCollection } from "astro:content";
 
 const games = await getCollection("games");
+const countGames = games.length;
 ---
 
 <style>
@@ -53,10 +54,12 @@ const games = await getCollection("games");
 	</div>
 	<div class="game-list">
 		{
-			games.map((game) => (
+			games.map((game, index, games) => (
 				<GameCard
 					shortName={game.slug}
 					gameTitle={game.data.title}
+					prevGameLink={games[index - 1]}
+					nextGameLink={games[index + 1]}
 				/>
 			))
 		}
