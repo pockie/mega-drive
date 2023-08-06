@@ -1,5 +1,5 @@
 ---
-title: "Technoclash"
+title: "The Terminator"
 genres: ["Role-playing"]
 wikipedia: "https://en.wikipedia.org/wiki/The_Terminator_(Sega_video_game)"
 release: '1992'
