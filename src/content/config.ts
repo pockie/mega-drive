@@ -10,6 +10,17 @@ const games = defineCollection({
 	}),
 });
 
+
+const bit32 = defineCollection({
+	schema: z.object({
+		title: z.string(),
+		subtitle: z.string().optional(),
+		genres: z.array(z.string()),
+		release: z.string(),
+		wikipedia: z.string().url().optional(),
+	}),
+});
+
 const hardwares = defineCollection({
 	schema: z.object({
 		title: z.string(),

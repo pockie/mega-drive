@@ -1,6 +1,6 @@
 ---
-const { shortName, gameTitle } = Astro.props;
-const frontCover = "/mega-drive/game-images/" + shortName + "/front-cover.jpg";
+const { shortName, gameTitle, category } = Astro.props;
+const frontCover = "/mega-drive/" + category + "/" + shortName + "/front-cover.jpg";
 ---
 
 <style>
@@ -14,7 +14,7 @@ const frontCover = "/mega-drive/game-images/" + shortName + "/front-cover.jpg";
   }
 </style>
 <div class="game-card" data-title={gameTitle}>
-  <a href={"games/" + shortName}>
+  <a href={"/mega-drive/" + category + "/" + shortName}>
     <figure>
       <img class="image-cover" src={frontCover} title={gameTitle} alt={gameTitle} />
       <figcaption>{gameTitle}</figcaption>

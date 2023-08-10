@@ -4,6 +4,7 @@ import { SITE_TITLE } from '../consts';
 import { getCollection } from "astro:content";
 
 const games = await getCollection("games");
+const bit32 = await getCollection("bit32");
 const hardewares = await getCollection("hardwares");
 ---
 
@@ -12,7 +13,8 @@ const hardewares = await getCollection("hardwares");
 		{SITE_TITLE}
 	</h2>
 	<nav>
-		<HeaderLink href="/mega-drive/">Games ({games.length})</HeaderLink>
+		<HeaderLink href="/mega-drive/">16 bit Games({games.length})</HeaderLink>
+		<HeaderLink href="/mega-drive/bit32">32 x({bit32.length})</HeaderLink>
 		<HeaderLink href="/mega-drive/hardwares">Hardware ({hardewares.length})</HeaderLink>
 	</nav>
 </header>

@@ -1,9 +1,9 @@
 ---
-import GameCard from "../components/GameCard.astro";
-import BaseLayout from "../layouts/BaseLayout.astro";
+import GameCard from "../../components/GameCard.astro";
+import BaseLayout from "../../layouts/BaseLayout.astro";
 import { getCollection } from "astro:content";
 
-const games = await getCollection("games");
+const games = await getCollection("bit32");
 ---
 
 <style>
@@ -59,7 +59,7 @@ const games = await getCollection("games");
 					gameTitle={game.data.title}
 					prevGameLink={games[index - 1]}
 					nextGameLink={games[index + 1]}
-					category="games"
+					category="bit32"
 				/>
 			))
 		}
