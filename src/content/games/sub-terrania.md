@@ -1,6 +1,6 @@
 ---
 title: "Sub-Terrania"
-genres: ["Horizontal-scrolling shooter"]
+genres: ["Multidirectional shooter"]
 wikipedia: "https://segaretro.org/Sub-Terrania"
 release: '1994'
 ---
