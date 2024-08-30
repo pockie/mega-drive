@@ -83,7 +83,7 @@ const nextink = nextGame !== null ? '/mega-drive/games/' + nextGame.slug : null;
 	<Content />
 	<div>Release: {game.data.release}</div>
 	<GenreList genres={genres} />
-	{game.data.wikipedia !== undefined && <a href={game.data.wikipedia} target="_blank"> Link to Wikipedia article</a>}
+	{game.data.wikipedia !== undefined && <a href={game.data.wikipedia} target="_blank"> Link to Wiki article</a>}
 </BaseLayout>
 <script>
 	const prevGame = document.getElementById('prev-game') as HTMLAnchorElement;
